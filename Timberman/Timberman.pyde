@@ -1,3 +1,4 @@
+import random 
 
 SCREEN_HEIGHT = 768
 SCREEN_WIDTH = 768
@@ -8,18 +9,28 @@ class Tree_block:
         self.branch = 0
         self.side = 256
         self.pos_y_list= [-256,0,256,512,768]
+
+    def rand_branch(self):
+        # -1 left branch | 0 no branches | 1 right branch
+        self.branch = random.randint(-1, 1)
         
-    def draw_tree(self):
-        rect(SCREEN_WIDTH/2-self.side/2,self.pos_y_list[self.pos],self.side,self.side) #change to sprites later
-        print(self.pos) #delete later
     def move(self):
         if self.pos >= len(self.pos_y_list)-1:
             self.pos = 0
+            self.rand_branch()
         else:
             self.pos += 1
+            
+    def draw_tree(self):
         
-    def get_branch(self):
-        pass
+        # draw tree core
+        rect(SCREEN_WIDTH/2-self.side/2,self.pos_y_list[self.pos],self.side,self.side) #change to sprites later
+         
+         # drawing branches
+        if self.branch == -1:
+            rect(0,self.pos_y_list[self.pos]-40+self.side/2,self.side,40)
+        if self.branch == 1:
+            rect(512,self.pos_y_list[self.pos]-40+self.side/2,self.side,40)
 
 class Player:
     def __init__():
@@ -35,18 +46,33 @@ class Player:
 
 def setup():
     size(SCREEN_WIDTH, SCREEN_HEIGHT)
-    global test, clicked
-    test = Tree_block(1)#delete later
+    global tree_block_1,tree_block_2,tree_block_3,tree_block_4,tree_block_5, clicked
+
+    tree_block_1 = Tree_block(0)
+    tree_block_2 = Tree_block(1)
+    tree_block_3 = Tree_block(2)
+    tree_block_4 = Tree_block(3)
+    tree_block_5 = Tree_block(4)
     clicked = False
 
 def keyPressed():
     global clicked
     
+
     if key == "a" and clicked == False:
-        test.move() #delete later
+        tree_block_1.move()
+        tree_block_2.move()
+        tree_block_3.move()
+        tree_block_4.move()
+        tree_block_5.move()
         clicked = True
+        
     elif key == "d" and clicked == False:
-        test.move() #delete later
+        tree_block_1.move()
+        tree_block_2.move()
+        tree_block_3.move()
+        tree_block_4.move()
+        tree_block_5.move()
         clicked = True
 
 def keyReleased():
@@ -55,4 +81,8 @@ def keyReleased():
 
 def draw():
     rect(0,0,SCREEN_WIDTH, SCREEN_HEIGHT)
-    test.draw_tree() #delete later
+    tree_block_1.draw_tree()
+    tree_block_2.draw_tree()
+    tree_block_3.draw_tree()
+    tree_block_4.draw_tree()
+    tree_block_5.draw_tree()
