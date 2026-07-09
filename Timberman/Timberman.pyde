@@ -13,7 +13,13 @@ class Tree_block:
     def rand_branch(self):
         # -1 left branch | 0 no branches | 1 right branch
         self.branch = random.randint(-1, 1)
-        
+
+    def get_pos(self):
+        return self.pos
+    
+    def get_branch(self):
+        return self.branch
+    
     def move(self):
         if self.pos >= len(self.pos_y_list)-1:
             self.pos = 0
@@ -33,10 +39,14 @@ class Tree_block:
             rect(512,self.pos_y_list[self.pos]-40+self.side/2,self.side,40)
 
 class Player:
-    def __init__():
-        pass
+    def __init__(self):
+        self.pos = -1 
+
+    def get_player_pos(self):
+        return self.pos
     
     def move(self):
+        # make player move depend on his position. Somethink like with with branches above
         pass
         
     def draw_player(self):
@@ -46,8 +56,9 @@ class Player:
 
 def setup():
     size(SCREEN_WIDTH, SCREEN_HEIGHT)
-    global tree_block_1,tree_block_2,tree_block_3,tree_block_4,tree_block_5, clicked
-
+    global player,tree_block_1,tree_block_2,tree_block_3,tree_block_4,tree_block_5, clicked
+    
+    player = Player()
     tree_block_1 = Tree_block(0)
     tree_block_2 = Tree_block(1)
     tree_block_3 = Tree_block(2)
@@ -79,7 +90,25 @@ def keyReleased():
     global clicked
     clicked = False
 
+def hitbox_check():
+    if tree_block_1.get_pos() == 3:
+        if tree_block_1.get_branch() == player.get_player_pos():
+            exit()
+    if tree_block_2.get_pos() == 3:
+        if tree_block_2.get_branch() == player.get_player_pos():
+            exit()
+    if tree_block_3.get_pos() == 3:
+        if tree_block_3.get_branch() == player.get_player_pos():
+            exit()
+    if tree_block_4.get_pos() == 3:
+        if tree_block_4.get_branch() == player.get_player_pos():
+            exit()
+    if tree_block_5.get_pos() == 3:
+        if tree_block_5.get_branch() == player.get_player_pos():
+            exit()
+            
 def draw():
+    hitbox_check()
     rect(0,0,SCREEN_WIDTH, SCREEN_HEIGHT)
     tree_block_1.draw_tree()
     tree_block_2.draw_tree()
