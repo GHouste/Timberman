@@ -33,9 +33,9 @@ class Tree_block:
         
          # drawing branches
         if self.branch == -1:
-            rect(0,self.pos_y_list[self.pos]-40+self.side/2,self.side,40)
+            rect(0,self.pos_y_list[self.pos]-40+self.side/2,self.side,40) #change to sprites later
         if self.branch == 1:
-            rect(512,self.pos_y_list[self.pos]-40+self.side/2,self.side,40)
+            rect(512,self.pos_y_list[self.pos]-40+self.side/2,self.side,40) #change to sprites later
 
 class Player:
     def __init__(self):
@@ -50,14 +50,16 @@ class Player:
     
     def draw_player(self):
         if self.pos == -1:
-            rect(0+self.size/2, SCREEN_WIDTH-self.size, self.size, self.size)
+            rect(0+self.size/2, SCREEN_WIDTH-self.size, self.size, self.size) #change to sprites later
         if self.pos == 1:
-            rect(512, SCREEN_WIDTH-self.size, self.size, self.size)
+            rect(512+self.size/2, SCREEN_WIDTH-self.size, self.size, self.size) #change to sprites later
 
 
 
 def setup():
     size(SCREEN_WIDTH, SCREEN_HEIGHT)
+    textSize(200)
+    
     global player,tree_block_1,tree_block_2,tree_block_3,tree_block_4,tree_block_5, clicked, points
     
     points = 0
@@ -69,6 +71,15 @@ def setup():
     tree_block_5 = Tree_block(4)
     clicked = False
 
+def show_score():
+        global points
+        fill(0,0,0)
+        if points < 10:
+            text(points,320,200)
+        if points < 100 and points >9:
+            text(points,256,200)
+        elif points >= 100:
+            text(points,192,200)
 def keyPressed():
     global clicked
     
@@ -102,34 +113,27 @@ def hitbox_check():
     if tree_block_1.get_pos() == 3:
         if tree_block_1.get_branch() == player.get_player_pos():
             exit()
-        else:
-            points += 1
     if tree_block_2.get_pos() == 3:
         if tree_block_2.get_branch() == player.get_player_pos():
             exit()
-        else:
-            points += 1
     if tree_block_3.get_pos() == 3:
         if tree_block_3.get_branch() == player.get_player_pos():
             exit()
-        else:
-            points += 1
     if tree_block_4.get_pos() == 3:
         if tree_block_4.get_branch() == player.get_player_pos():
             exit()
-        else:
-            points += 1
     if tree_block_5.get_pos() == 3:
         if tree_block_5.get_branch() == player.get_player_pos():
             exit()
-        else:
-            points += 1
+    points += 1
 
 def draw():
-    rect(0,0,SCREEN_WIDTH, SCREEN_HEIGHT)
+    fill(255,255,255)#delete when changed to sprites
+    rect(0,0,SCREEN_WIDTH, SCREEN_HEIGHT) #change to sprites later
     player.draw_player()
     tree_block_1.draw_tree()
     tree_block_2.draw_tree()
     tree_block_3.draw_tree()
     tree_block_4.draw_tree()
     tree_block_5.draw_tree()
+    show_score()
