@@ -81,6 +81,7 @@ def keyPressed():
         tree_block_4.move()
         tree_block_5.move()
         clicked = True
+        hitbox_check()
         
     elif key == "d" and clicked == False:
         player.move(1)
@@ -90,12 +91,15 @@ def keyPressed():
         tree_block_4.move()
         tree_block_5.move()
         clicked = True
+        hitbox_check()
 
 def keyReleased():
     global clicked
     clicked = False
 
 def hitbox_check():
+    global points
+    
     if tree_block_1.get_pos() == 3:
         if tree_block_1.get_branch() == player.get_player_pos():
             exit()
@@ -124,7 +128,6 @@ def hitbox_check():
 
 def draw():
     player.draw_player()
-    hitbox_check()
     rect(0,0,SCREEN_WIDTH, SCREEN_HEIGHT)
     tree_block_1.draw_tree()
     tree_block_2.draw_tree()
