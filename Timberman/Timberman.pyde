@@ -59,8 +59,9 @@ class Player:
 
 def setup():
     size(SCREEN_WIDTH, SCREEN_HEIGHT)
-    global player,tree_block_1,tree_block_2,tree_block_3,tree_block_4,tree_block_5, clicked
+    global player,tree_block_1,tree_block_2,tree_block_3,tree_block_4,tree_block_5, clicked, points
     
+    points = 0
     player = Player()
     tree_block_1 = Tree_block(0)
     tree_block_2 = Tree_block(1)
@@ -98,18 +99,28 @@ def hitbox_check():
     if tree_block_1.get_pos() == 3:
         if tree_block_1.get_branch() == player.get_player_pos():
             exit()
+        else:
+            points += 1
     if tree_block_2.get_pos() == 3:
         if tree_block_2.get_branch() == player.get_player_pos():
             exit()
+        else:
+            points += 1
     if tree_block_3.get_pos() == 3:
         if tree_block_3.get_branch() == player.get_player_pos():
             exit()
+        else:
+            points += 1
     if tree_block_4.get_pos() == 3:
         if tree_block_4.get_branch() == player.get_player_pos():
             exit()
+        else:
+            points += 1
     if tree_block_5.get_pos() == 3:
         if tree_block_5.get_branch() == player.get_player_pos():
             exit()
+        else:
+            points += 1
 
 def draw():
     player.draw_player()
