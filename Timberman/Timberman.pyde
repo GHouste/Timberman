@@ -26,7 +26,7 @@ class Tree_block:
             self.rand_branch()
         else:
             self.pos += 1
-            
+    
     def draw_tree(self):
         # draw tree core
         rect(SCREEN_WIDTH/2-self.side/2, self.pos_y_list[self.pos], self.side, self.side) #change to sprites later
@@ -40,20 +40,19 @@ class Tree_block:
 class Player:
     def __init__(self):
         self.pos = -1 
+        self.size = 256
 
     def get_player_pos(self):
         return self.pos
     
     def move(self, direction):
         self.pos = direction
-        
+    
     def draw_player(self):
-        # write draw player function based on position
-        
         if self.pos == -1:
-            pass
+            rect(0, SCREEN_WIDTH-self.size, self.size, self.size)
         if self.pos == 1:
-            pass
+            rect(512, SCREEN_WIDTH-self.size, self.size, self.size)
 
 
 
