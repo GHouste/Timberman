@@ -1,4 +1,4 @@
-import random 
+import random
 
 SCREEN_HEIGHT = 768
 SCREEN_WIDTH = 768
@@ -28,10 +28,9 @@ class Tree_block:
             self.pos += 1
             
     def draw_tree(self):
-        
         # draw tree core
-        rect(SCREEN_WIDTH/2-self.side/2,self.pos_y_list[self.pos],self.side,self.side) #change to sprites later
-         
+        rect(SCREEN_WIDTH/2-self.side/2, self.pos_y_list[self.pos], self.side, self.side) #change to sprites later
+        
          # drawing branches
         if self.branch == -1:
             rect(0,self.pos_y_list[self.pos]-40+self.side/2,self.side,40)
@@ -45,12 +44,16 @@ class Player:
     def get_player_pos(self):
         return self.pos
     
-    def move(self):
-        # make player move depend on his position. Somethink like with with branches above
-        pass
+    def move(self, direction):
+        self.pos = direction
         
     def draw_player(self):
-        pass
+        # write draw player function based on position
+        
+        if self.pos == -1:
+            pass
+        if self.pos == 1:
+            pass
 
 
 
@@ -69,8 +72,8 @@ def setup():
 def keyPressed():
     global clicked
     
-
     if key == "a" and clicked == False:
+        player.move(-1)
         tree_block_1.move()
         tree_block_2.move()
         tree_block_3.move()
@@ -79,6 +82,7 @@ def keyPressed():
         clicked = True
         
     elif key == "d" and clicked == False:
+        player.move(1)
         tree_block_1.move()
         tree_block_2.move()
         tree_block_3.move()
@@ -106,8 +110,9 @@ def hitbox_check():
     if tree_block_5.get_pos() == 3:
         if tree_block_5.get_branch() == player.get_player_pos():
             exit()
-            
+
 def draw():
+    player.draw_player()
     hitbox_check()
     rect(0,0,SCREEN_WIDTH, SCREEN_HEIGHT)
     tree_block_1.draw_tree()
