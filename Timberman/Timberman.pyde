@@ -40,7 +40,7 @@ class Tree_block:
 class Player:
     def __init__(self):
         self.pos = -1 
-        self.size = 256
+        self.size = 128
 
     def get_player_pos(self):
         return self.pos
@@ -50,7 +50,7 @@ class Player:
     
     def draw_player(self):
         if self.pos == -1:
-            rect(0, SCREEN_WIDTH-self.size, self.size, self.size)
+            rect(0+self.size/2, SCREEN_WIDTH-self.size, self.size, self.size)
         if self.pos == 1:
             rect(512, SCREEN_WIDTH-self.size, self.size, self.size)
 
@@ -126,8 +126,8 @@ def hitbox_check():
             points += 1
 
 def draw():
-    player.draw_player()
     rect(0,0,SCREEN_WIDTH, SCREEN_HEIGHT)
+    player.draw_player()
     tree_block_1.draw_tree()
     tree_block_2.draw_tree()
     tree_block_3.draw_tree()
