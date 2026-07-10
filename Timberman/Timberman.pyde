@@ -9,7 +9,9 @@ class Tree_block:
         self.branch = 0
         self.side = 256
         self.pos_y_list= [-256,0,256,512,768]
-
+        self.tree_sprite = loadImage("assets/tree.png")
+        self.branch_sprite = loadImage("assets/branch.png")
+        
     def rand_branch(self):
         # -1 left branch | 0 no branches | 1 right branch
         self.branch = random.randint(-1, 1)
@@ -29,19 +31,20 @@ class Tree_block:
     
     def draw_tree(self):
         # draw tree core
-        rect(SCREEN_WIDTH/2-self.side/2, self.pos_y_list[self.pos], self.side, self.side) #change to sprites later
+        image(self.tree_sprite,SCREEN_WIDTH/2-self.side/2,self.pos_y_list[self.pos])
         
          # drawing branches
         if self.branch == -1:
-            rect(0,self.pos_y_list[self.pos]-40+self.side/2,self.side,40) #change to sprites later
+            image(self.branch_sprite,0,self.pos_y_list[self.pos]-40+self.side/2)
         if self.branch == 1:
-            rect(512,self.pos_y_list[self.pos]-40+self.side/2,self.side,40) #change to sprites later
+            image(self.branch_sprite,384,self.pos_y_list[self.pos]-40+self.side/2)
 
 class Player:
     def __init__(self):
         self.pos = -1 
         self.size = 128
-
+        self.player_sprite = loadImage("assets/player.png")
+        
     def get_player_pos(self):
         return self.pos
     
@@ -50,9 +53,9 @@ class Player:
     
     def draw_player(self):
         if self.pos == -1:
-            rect(0+self.size/2, SCREEN_WIDTH-self.size, self.size, self.size) #change to sprites later
+            image(self.player_sprite,0+self.size/2, SCREEN_WIDTH-self.size,)
         if self.pos == 1:
-            rect(512+self.size/2, SCREEN_WIDTH-self.size, self.size, self.size) #change to sprites later
+            image(self.player_sprite,512+self.size/2, SCREEN_WIDTH-self.size)
 
 
 
@@ -60,7 +63,9 @@ def setup():
     size(SCREEN_WIDTH, SCREEN_HEIGHT)
     textSize(200)
     
-    global player,tree_block_1,tree_block_2,tree_block_3,tree_block_4,tree_block_5, clicked, points
+    global bg ,player,tree_block_1,tree_block_2,tree_block_3,tree_block_4,tree_block_5, clicked, points
+    
+    bg = loadImage("assets/background.png")
     
     points = 0
     player = Player()
@@ -128,8 +133,7 @@ def hitbox_check():
     points += 1
 
 def draw():
-    fill(255,255,255)#delete when changed to sprites
-    rect(0,0,SCREEN_WIDTH, SCREEN_HEIGHT) #change to sprites later
+    image(bg,0,0)
     player.draw_player()
     tree_block_1.draw_tree()
     tree_block_2.draw_tree()
