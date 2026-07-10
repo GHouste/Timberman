@@ -52,6 +52,7 @@ class Player:
         self.pos = direction
     
     def draw_player(self):
+        # -1 player on left side | 1 player on right side
         if self.pos == -1:
             image(self.player_sprite,0+self.size/2, SCREEN_WIDTH-self.size,)
         if self.pos == 1:
@@ -60,11 +61,10 @@ class Player:
 
 
 def setup():
+    global bg,player,tree_block_1,tree_block_2,tree_block_3,tree_block_4,tree_block_5, clicked, points
+    
     size(SCREEN_WIDTH, SCREEN_HEIGHT)
     textSize(200)
-    
-    global bg ,player,tree_block_1,tree_block_2,tree_block_3,tree_block_4,tree_block_5, clicked, points
-    
     bg = loadImage("assets/background.png")
     
     points = 0
@@ -81,36 +81,10 @@ def show_score():
         fill(0,0,0)
         if points < 10:
             text(points,320,200)
-        if points < 100 and points >9:
+        elif points < 100:
             text(points,256,200)
         elif points >= 100:
             text(points,192,200)
-def keyPressed():
-    global clicked
-    
-    if key == "a" and clicked == False:
-        player.move(-1)
-        tree_block_1.move()
-        tree_block_2.move()
-        tree_block_3.move()
-        tree_block_4.move()
-        tree_block_5.move()
-        clicked = True
-        hitbox_check()
-        
-    elif key == "d" and clicked == False:
-        player.move(1)
-        tree_block_1.move()
-        tree_block_2.move()
-        tree_block_3.move()
-        tree_block_4.move()
-        tree_block_5.move()
-        clicked = True
-        hitbox_check()
-
-def keyReleased():
-    global clicked
-    clicked = False
 
 def hitbox_check():
     global points
@@ -131,6 +105,35 @@ def hitbox_check():
         if tree_block_5.get_branch() == player.get_player_pos():
             exit()
     points += 1
+
+def keyPressed():
+    global clicked
+    
+    if key == "a" and clicked == False:
+        player.move(-1)
+        tree_block_1.move()
+        tree_block_2.move()
+        tree_block_3.move()
+        tree_block_4.move()
+        tree_block_5.move()
+        hitbox_check()
+        
+    elif key == "d" and clicked == False:
+        player.move(1)
+        tree_block_1.move()
+        tree_block_2.move()
+        tree_block_3.move()
+        tree_block_4.move()
+        tree_block_5.move()
+        hitbox_check()
+    
+    clicked = True
+
+def keyReleased():
+    global clicked
+    
+    clicked = False
+
 
 def draw():
     image(bg,0,0)
